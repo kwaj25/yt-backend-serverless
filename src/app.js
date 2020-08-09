@@ -6,7 +6,7 @@ const itags = require("../constants/itags");
 const cors = require("cors");
 const ytdl = require("ytdl-core");
 const ffmpegPath = require("@ffmpeg-installer/ffmpeg").path;
-const ffmpeg = require("fluent-ffmpeg");
+const ffmpeg = require('../node_modules/fluent-ffmpeg/lib/fluent-ffmpeg');
 const playlists = require("yt-playlist-scraper");
 const fs = require("fs");
 const path = require("path");
@@ -20,12 +20,14 @@ const PORT = process.env.PORT || 80;
 
 const app = express();
 app.use(cors());
+const router = express.Router();
+app.use('/.netlify/functions/app', router)
 
-app.get("/", async (req, res) => {
+router.get("/", async (req, res) => {
   res.send("Youtube downloader api works fluently!!!!");
 });
 
-app.get("/playlistInfo", async (req, res) => {
+router.get("/playlistInfo", async (req, res) => {
   const playListID = req.query.playListID;
   playlists(playListID)
     .then((playListData) => {
@@ -34,7 +36,7 @@ app.get("/playlistInfo", async (req, res) => {
     .catch((err) => console.log(err));
 });
 
-app.get("/downloadAudio", async (req, res) => {
+router.get("/downloadAudio", async (req, res) => {
   let { url } = req.query;
   let id = ytdl.getURLVideoID(url);
   let stream = ytdl(id, {
@@ -54,7 +56,7 @@ app.get("/downloadAudio", async (req, res) => {
   ffmpeg(stream).format("mp3").audioBitrate(128).pipe(res, { end: true });
 });
 
-app.get("/getInfo", (req, res) => {
+router.get("/getInfo", (req, res) => {
   let { url } = req.query;
   let id = ytdl.getURLVideoID(url);
   ytdl.getInfo(id, (err, info) => {
@@ -98,7 +100,7 @@ app.get("/getInfo", (req, res) => {
   });
 });
 
-app.get("/downloadVideo", async (req, res) => {
+router.get("/downloadVideo", async (req, res) => {
   let videoURL = req.query.url;
   let itag = req.query.itag;
   let id = ytdl.getURLVideoID(videoURL);

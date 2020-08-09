@@ -4,14 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "netlify-lamda serve src",
-    "build": "netlify-lamda build src"
+    "start": "netlify-lambda serve src",
+    "build": "netlify-lambda build src"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@ffmpeg-installer/ffmpeg": "^1.0.20",
+    "@ffmpeg-installer/linux-x64": "^4.1.0",
     "cors": "^2.8.5",
     "dl-from-yt": "^1.0.5",
     "express": "^4.17.1",
