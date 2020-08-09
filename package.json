@@ -1,0 +1,26 @@
+{
+  "name": "yt_downloader",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "netlify-lamda serve src",
+    "build": "netlify-lamda build src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
+    "cors": "^2.8.5",
+    "dl-from-yt": "^1.0.5",
+    "express": "^4.17.1",
+    "fluent-ffmpeg": "^2.1.2",
+    "netlify-lambda": "^2.0.1",
+    "nodemon": "^2.0.4",
+    "serverless-http": "^2.5.0",
+    "yt-playlist-scraper": "^1.0.1",
+    "ytdl-core": "^3.1.2",
+    "ytpl": "^0.1.22"
+  }
+}
